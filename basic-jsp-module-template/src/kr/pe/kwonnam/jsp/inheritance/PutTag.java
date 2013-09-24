@@ -37,10 +37,10 @@ public class PutTag extends SimpleTagSupport {
 
 		System.out.println("++++++++++++++++++++++++");
 		PageContext pageContext = (PageContext) getJspContext();
-		System.out.println(pageContext.getPage());
-		System.out.println(name);
-		System.out.println(getPutType());
-		System.out.println("++++++++++++++++++++++++");
+//		System.out.println(pageContext.getPage());
+//		System.out.println(name);
+//		System.out.println(getPutType());
+//		System.out.println("++++++++++++++++++++++++");
 
 		String putContentExisting = (String) pageContext.findAttribute(getBlockContentsAttributeName(name));
 		putContentExisting = (putContentExisting == null) ? "" : putContentExisting;

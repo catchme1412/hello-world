@@ -14,7 +14,7 @@
         </div>
     </layout:put>
 
-    <layout:put name="footer" type="REPLACE">
+    <layout:put name="footer" type="APPEND">
         <div>
             <h2>Second Layout footer</h2>
         </div>
