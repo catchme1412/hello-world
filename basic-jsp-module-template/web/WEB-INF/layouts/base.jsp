@@ -14,19 +14,17 @@
     <h1>Base Layout</h1>
     <div class="header">
         <layout:module name="header">
-            <p>(PREPEND)<c:out value="${testProperty}" escapeXml="true"/></p>
-            <hr />
+           base layout header
         </layout:module>
     </div>
     <div class="body">
         <layout:module name="body">
-            <div><strong>(APPEND) start body .......</strong></div>
+            base layout body
         </layout:module>
     </div>
     <div class="footer">
-        <div>(REPLACE)</div>
         <layout:module name="footer">
-            <div>This line must be replaced by children's footer.</div>
+            base layout footer
         </layout:module>
     </div>
 </html>

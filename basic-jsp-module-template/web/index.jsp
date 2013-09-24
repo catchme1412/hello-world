@@ -12,10 +12,10 @@
     <div>This is useless html.</div>
 
     <layout:put name="body">
-        First body
+        First body in index.jsp
     </layout:put>
     <layout:put name="body">
-        Second body
+        Second body in index.jsp
     </layout:put>
     <layout:put name="footer" type="REPLACE">
     	FOOTER

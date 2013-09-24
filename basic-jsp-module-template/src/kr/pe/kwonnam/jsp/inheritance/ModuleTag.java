@@ -28,7 +28,8 @@ public class ModuleTag extends SimpleTagSupport {
 
         String bodyResult = getBodyResult(getJspBody());
         String putContents = getPutContents(pageContext);
-
+//        System.out.println("bodyResult:" + pageContext.getPage());
+//        System.out.println("putContents:" + putContents);
         putType.write(pageContext.getOut(), bodyResult, putContents);
     }
 
