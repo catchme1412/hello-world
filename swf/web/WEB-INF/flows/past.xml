@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+		http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd" start-state="start">
+	
+	<action-state id="start">
+		<evaluate expression="PastAction"></evaluate>
+	</action-state>
+	
+	<!-- See http://forum.springframework.org/showthread.php?t=51240 -->
+	<!-- See also http://jira.springframework.org/browse/SWF-588 -->
+	<!-- View applies only when directly called; calling flows ignore it? -->
+	<end-state id="end" view="externalRedirect:contextRelative:/home.do"/>
+</flow>
