@@ -1,5 +1,10 @@
 package com.voyage.web.controller;
 
+import org.neo4j.gis.spatial.EditableLayer;
+import org.neo4j.gis.spatial.EditableLayerImpl;
+import org.neo4j.gis.spatial.SpatialDatabaseService;
+import org.neo4j.gis.spatial.encoders.SimplePointEncoder;
+import org.neo4j.kernel.EmbeddedGraphDatabase;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -14,6 +19,8 @@ import com.voyage.database.DatabaseManager;
 @RequestMapping("/home")
 public class HomeController {
 
+	//FileUtils.deleteRecursively(new File("accessingdataneo4j.db"));
+	
     @RequestMapping(method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {
 
@@ -21,11 +28,13 @@ public class HomeController {
         System.out.println("CONTROLLER CALLED");
 
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-
-        DatabaseManager objA = (DatabaseManager) context.getBean("databaseManager");
+        EmbeddedGraphDatabase embeddedGraphDatabase = (EmbeddedGraphDatabase) context.getBean("graphDatabaseService");
+        DatabaseManager database = (DatabaseManager) context.getBean("databaseManager");
+        SpatialDatabaseService spatialDb = new SpatialDatabaseService(embeddedGraphDatabase);
+        EditableLayer stationLayer = (EditableLayer) spatialDb.getOrCreateLayer("stationLayer", SimplePointEncoder.class, EditableLayerImpl.class, "lon:lat");
         RailwayStation railwayStation = new RailwayStation("SBC");
-        objA.save(railwayStation);
-        System.out.println(objA.getTemplate());
+        database.save(railwayStation);
+        System.out.println(database.getTemplate());
         return "hello";
 
     }

@@ -1,0 +1,24 @@
+-------------------------------------------------------------------------------
+Test set: com.voyage.model.BonVoyageServiceTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 15.714 sec <<< FAILURE!
+testAddRailwayStation(com.voyage.model.BonVoyageServiceTest)  Time elapsed: 9.152 sec  <<< ERROR!
+java.lang.NullPointerException
+	at com.voyage.model.BonVoyageServiceTest.testAddRailwayStation(BonVoyageServiceTest.java:21)
+testGetRailwayStation(com.voyage.model.BonVoyageServiceTest)  Time elapsed: 6.55 sec  <<< ERROR!
+java.lang.RuntimeException: org.apache.lucene.store.LockObtainFailedException: Lock obtain timed out: NativeFSLock@/tmp/graph.db/index/lucene/node/RailwayStation/write.lock
+	at org.neo4j.index.impl.lucene.LuceneDataSource.newIndexWriter(LuceneDataSource.java:718)
+	at org.neo4j.index.impl.lucene.LuceneDataSource.syncGetIndexSearcher(LuceneDataSource.java:596)
+	at org.neo4j.index.impl.lucene.LuceneDataSource.getIndexSearcher(LuceneDataSource.java:560)
+	at org.neo4j.index.impl.lucene.LuceneIndex.query(LuceneIndex.java:268)
+	at org.neo4j.index.impl.lucene.LuceneIndex.get(LuceneIndex.java:207)
+	at org.springframework.data.neo4j.repository.AbstractGraphRepository.getIndexHits(AbstractGraphRepository.java:189)
+	at org.springframework.data.neo4j.repository.AbstractGraphRepository.findByPropertyValue(AbstractGraphRepository.java:174)
+	at org.springframework.data.neo4j.repository.AbstractGraphRepository.findByPropertyValue(AbstractGraphRepository.java:161)
+	at com.voyage.model.BonVoyageService.getRailwayStation(BonVoyageService.java:55)
+	at com.voyage.model.BonVoyageServiceTest.testGetRailwayStation(BonVoyageServiceTest.java:25)
+Caused by: org.apache.lucene.store.LockObtainFailedException: Lock obtain timed out: NativeFSLock@/tmp/graph.db/index/lucene/node/RailwayStation/write.lock
+	at org.apache.lucene.store.Lock.obtain(Lock.java:84)
+	at org.apache.lucene.index.IndexWriter.<init>(IndexWriter.java:1098)
+	at org.neo4j.index.impl.lucene.LuceneDataSource.newIndexWriter(LuceneDataSource.java:707)
+	... 37 more
