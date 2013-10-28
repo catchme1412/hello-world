@@ -15,7 +15,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 	<neo4j:config graphDatabaseService="graphDatabaseService" />
 	<neo4j:repositories base-package="com.voyage" />
 
-	<bean id="databaseManager" class="com.voyage.database.DatabaseManager" />
+	<bean id="databaseManager" class="com.voyage.database.DatabaseManagerImpl" />
 
 	<bean id="graphDatabaseService" class="org.neo4j.kernel.EmbeddedGraphDatabase"
 		destroy-method="shutdown">
@@ -27,6 +27,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 		</constructor-arg>
 	</bean>
 
+	
 	<tx:annotation-driven mode="proxy" />
 
 </beans>

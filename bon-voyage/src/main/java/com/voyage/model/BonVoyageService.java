@@ -8,7 +8,6 @@ import org.neo4j.gis.spatial.SpatialDatabaseService;
 import org.neo4j.gis.spatial.encoders.SimplePointEncoder;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
 import org.neo4j.kernel.impl.util.FileUtils;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
@@ -20,10 +19,7 @@ import com.voyage.database.DatabaseManager;
 
 public class BonVoyageService {
 
-	private SimplePointLayer stationLayer;
-	private EmbeddedGraphDatabase embeddedGraphDatabase;
-	private DatabaseManager databaseManager;
-	private SpatialDatabaseService spatialDb;
+	public static ClassPathXmlApplicationContext context;
 
 	// Circle circle = new Circle(-73.99171, 40.738868, 0.01);
 	// Point location = new Point(-73.99171, 40.738868);
@@ -31,34 +27,30 @@ public class BonVoyageService {
 	// Metrics.MILES));
 
 	public BonVoyageService() throws IOException {
-		//clean up
+		// clean up
 		FileUtils.deleteRecursively(new File("/tmp/graph.db"));
-		
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		embeddedGraphDatabase = (EmbeddedGraphDatabase) context.getBean("graphDatabaseService");
-		databaseManager = (DatabaseManager) context.getBean("databaseManager");
-		spatialDb = new SpatialDatabaseService(embeddedGraphDatabase);
-		stationLayer = (SimplePointLayer) spatialDb.getOrCreateLayer("stationLayer", SimplePointEncoder.class,
-				SimplePointLayer.class, "lon:lat");
 
+		// loadData();
 	}
 
-	public void addRailwayStation(RailwayStation station) {
-		// Node node =
-		// databaseManager.getTemplate().getPersistentState(station);
-		Point node = stationLayer.getGeometryFactory().createPoint(station.getCoordinate());
-		node.setUserData(station);// ?
-	}
+//	public void initData() {
+//		RailwayStation station = new RailwayStation("SBC");
+//		station.setCoordinate(10, 10);
+//		addRailwayStation(station);
+//	}
 
-	public RailwayStation getRailwayStation(String stationCode) {
-		GraphRepository<RailwayStation> stationRepo = databaseManager.getTemplate().repositoryFor(RailwayStation.class);
-		RailwayStation retrievedMovie = stationRepo.findByPropertyValue("stationCode", stationCode);
-		return retrievedMovie;
-	}
+	
+
 	// public List<RailwayStation> getNearByStations(Coordinate location) {
 	// // stationLayer.getSpatialDatabase().
 	// List<GeoPipeFlow> results =
 	// stationLayer.findClosestPointsTo(location, 10.0);
 	// // results.get(0).getRecord().getGeomNode().get
 	// }
+
+	public static void main(String[] args) throws IOException {
+//		BonVoyageService b = new BonVoyageService();
+//		RailwayStation a = b.getRailwayStation("SBC");
+//		System.out.println(a);
+	}
 }

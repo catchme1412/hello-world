@@ -1,25 +1,28 @@
 package com.voyage.database;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.io.Serializable;
+
 import org.springframework.data.neo4j.template.Neo4jOperations;
-import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
-public class DatabaseManager {
+import com.voyage.dao.RailwayStation;
+import com.voyage.dao.RouteLeg;
 
-	@Autowired
-	private Neo4jOperations template;
+public interface DatabaseManager extends Serializable {
 
-	public Neo4jOperations getTemplate() {
-		return template;
-	}
+	public abstract Neo4jOperations getTemplate();
 
-	public void setTemplate(Neo4jOperations template) {
-		this.template = template;
-	}
+	public abstract void save(Object entity);
+
+	public abstract void addRailwayStation(RailwayStation station);
+
+	public abstract RailwayStation getRailwayStation(String stationCode);
 	
-	public void save(Object entity) {
-	    this.template.save(entity);
-	}
+	public void addRouteLeg(RouteLeg leg);
 	
+	public RouteLeg getRouteLeg(String from, String to);
+	
+	public RouteLeg getRouteLeg(RailwayStation from, RailwayStation to);
+
+	public abstract void forceClean();
+
 }

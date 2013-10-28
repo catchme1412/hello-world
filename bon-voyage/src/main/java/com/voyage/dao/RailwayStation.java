@@ -20,6 +20,7 @@ public class RailwayStation {
 
 	private Coordinate coordinate;
 	
+	
     
     
     public RailwayStation() {
