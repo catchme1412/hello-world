@@ -5,6 +5,8 @@ import java.io.IOException;
 import org.neo4j.gis.spatial.SimplePointLayer;
 import org.neo4j.gis.spatial.SpatialDatabaseService;
 import org.neo4j.gis.spatial.encoders.SimplePointEncoder;
+import org.neo4j.graphdb.Relationship;
+import org.neo4j.graphdb.RelationshipType;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,10 @@ import com.voyage.dao.RouteLeg;
 
 @Transactional
 public class DatabaseManagerImpl implements InitializingBean, DatabaseManager {
+
+	enum RelationshipTypes implements RelationshipType {
+		RAIL_ROUTE
+	}
 
 	@Autowired
 	private Neo4jOperations template;
@@ -123,12 +129,17 @@ public class DatabaseManagerImpl implements InitializingBean, DatabaseManager {
 	@Override
 	public void addRouteLeg(RouteLeg leg) {
 		// TODO Auto-generated method stub
-		
+		// template.save(leg);
+		Relationship r = template.getNode(leg.getFrom().getId()).createRelationshipTo(
+				template.getNode(leg.getTo().getId()), RelationshipTypes.RAIL_ROUTE);
+		r.setProperty("trainNumber", leg.getTrainNumber());
 	}
 
 	@Override
 	public RouteLeg getRouteLeg(String from, String to) {
 		// TODO Auto-generated method stub
+		GraphRepository<RouteLeg> stationRepo = template.repositoryFor(RouteLeg.class);
+//		stationRepo.query(arg0, arg1)
 		return null;
 	}
 
@@ -136,9 +147,10 @@ public class DatabaseManagerImpl implements InitializingBean, DatabaseManager {
 	public RouteLeg getRouteLeg(RailwayStation from, RailwayStation to) {
 
 		GraphRepository<RouteLeg> stationRepo = template.repositoryFor(RouteLeg.class);
-//		RailwayStation retrievedMovie = stationRepo.findByPropertyValue("stationCode", stationCode);
+		// RailwayStation retrievedMovie =
+		// stationRepo.findByPropertyValue("stationCode", stationCode);
 		return null;
-	
+
 		// TODO Auto-generated method stub
 	}
 }

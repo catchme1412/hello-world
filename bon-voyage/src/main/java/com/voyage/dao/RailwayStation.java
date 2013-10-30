@@ -11,7 +11,7 @@ import com.vividsolutions.jts.geom.Coordinate;
 public class RailwayStation {
     
     @GraphId 
-    private Long nodeId;
+    private Long id;
 
     @Indexed
     private String stationCode;
@@ -57,6 +57,14 @@ public class RailwayStation {
 
 	public void setCoordinate(Coordinate coordinate) {
 		this.coordinate = coordinate;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
     
 }
