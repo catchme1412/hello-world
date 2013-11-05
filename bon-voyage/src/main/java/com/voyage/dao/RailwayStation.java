@@ -19,9 +19,6 @@ public class RailwayStation {
     private String stationName;
 
 	private Coordinate coordinate;
-	
-	
-    
     
     public RailwayStation() {
         //empty
